@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+section {
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+#left-sidebar {
+    background-color: lightpink;
+    min-height: 50px;
+}
+
+#right-sidebar {
+    background-color: lightblue;
+    min-height: 50px;
+}
+
+main {
+    flex: 1;
+    background-color: lightgray;
+}
+
+header, footer {
+    height: 40px;
+    background-color: rgba(0,0,0,0.8);
+}
+
+@media only screen and (max-width: 600px) {
+    section {
+        flex-direction: column;
+    }
+
+    main {
+        order: 1;
+    }
+
+    #left-sidebar {
+        order: 2
+    }
+
+    #right-sidebar {
+        order: 3
+    }
+    
+}
