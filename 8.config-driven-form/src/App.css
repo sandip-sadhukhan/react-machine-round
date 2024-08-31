@@ -1,0 +1,24 @@
+.App {
+  font-family: sans-serif;
+  padding: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-weight: 600;
+}
+
+button {
+  padding: 9px 18px 10px 18px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 5px;
+}
