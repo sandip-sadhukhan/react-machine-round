@@ -1,0 +1,37 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.progress-bar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(237, 231, 231);
+  border-radius: 15px;
+  border: 1px solid rgb(202, 197, 197);
+
+}
+
+.progress-bar-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  background-color: #00c251;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+}
+
+/* .progress-bar-active.full {
+  border-top-right-radius: 10px;
+  border-end-end-radius: 10px;
+} */
+
+.progress-bar-text {
+  font-size: 12px;
+  margin: 2px auto;
+  z-index: 10;
+}
