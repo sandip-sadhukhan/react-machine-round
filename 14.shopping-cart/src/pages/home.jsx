@@ -7,8 +7,9 @@ import Filters from "../components/filters";
 const Home = () => {
   const [page, setPage] = useState(1);
   const {
-    state: {products},
-    filterState: {sort, byStock, byRating, searchQuery}
+    state: {products, cart},
+    filterState: {sort, byStock, byRating, searchQuery},
+    dispatch
   } = ShoppingCartState();
 
   const filteredProducts = useMemo(() => {
@@ -49,6 +50,7 @@ const Home = () => {
         {filteredProducts.length > 0 && (
           <div className="products w-full">
             {filteredProducts?.slice(page * 10 - 10, page * 10).map((prod) => {
+              const inCart = cart.findIndex(p => p.id === prod.id) > -1;
               return (
                 <span className={`products__single`} key={prod.id}>
                   <img src={prod.thumbnail} alt={prod.title} />
@@ -56,6 +58,16 @@ const Home = () => {
                   <hr />
                   <span>$ {prod.price}</span>
                   <StarRating rating={prod.rating} />
+                  <button
+                    className={`px-2 py-1 mt-2 ${!inCart ? "bg-orange-600" : "bg-blue-400"} disabled:opacity-50`}
+                    disabled={!prod.inStock}
+                    onClick={() => dispatch({
+                      type: inCart ? "REMOVE_FROM_CART" : "ADD_TO_CART",
+                      payload: prod
+                    })}
+                  >
+                    {prod.inStock ? inCart ? "Remove from Cart" : "Add to Cart" : "Out of Stock"}
+                  </button>
                 </span>
               );
             })}

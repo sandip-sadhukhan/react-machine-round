@@ -3,6 +3,7 @@ import './App.css'
 import AppLayout from './components/app-layout'
 import Home from './pages/home'
 import Context from './context/context'
+import Cart from './pages/cart'
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: "/cart",
+        element: <Cart />
       }
     ]
   }
