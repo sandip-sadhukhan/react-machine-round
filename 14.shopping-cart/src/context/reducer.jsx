@@ -15,6 +15,9 @@ export const shoppingCartReducer = (state, action) => {
     case "CHANGE_CART_QTY":
       return {...state, cart: state.cart.filter(c => c.id === action.payload.id ? (c.qty = action.payload.qty): c.qty)}
     
+    case "FETCH_CATEGORIES":
+      return {...state, categories: action.payload}
+    
     default:
       return state
   }
@@ -33,12 +36,17 @@ export const filterReducer = (state, action) => {
 
     case "FILTER_BY_SEARCH":
       return {...state, searchQuery: action.payload}
+    
+    case "FILTER_BY_CATEGORY":
+      console.log(action.payload)
+      return {...state, byCategory: action.payload}
 
     case "CLEAR_FILTERS":
       return {
         byStock: false,
         byRating: 0,
         searchQuery: "",
+        byCategory: null
       }
     
     default:

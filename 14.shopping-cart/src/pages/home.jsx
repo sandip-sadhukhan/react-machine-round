@@ -7,9 +7,10 @@ import Filters from "../components/filters";
 const Home = () => {
   const [page, setPage] = useState(1);
   const {
-    state: {products, cart},
-    filterState: {sort, byStock, byRating, searchQuery},
-    dispatch
+    state: {products, cart, categories},
+    filterState: {sort, byStock, byRating, searchQuery, byCategory},
+    dispatch,
+    filterDispatch
   } = ShoppingCartState();
 
   const filteredProducts = useMemo(() => {
@@ -37,8 +38,12 @@ const Home = () => {
       filteredProducts = filteredProducts.filter(prod => prod.title.toLowerCase().includes(searchQuery.toLowerCase()))
     }
 
+    if (byCategory) {
+      filteredProducts = filteredProducts.filter(prod => prod.category === byCategory);
+    }
+
     return filteredProducts;
-  }, [sort, byStock, byRating, searchQuery, products])
+  }, [sort, byStock, byRating, searchQuery, byCategory, products])
 
   return (
     <div>
@@ -47,8 +52,24 @@ const Home = () => {
         <Filters />
 
         {/* Products */}
+        <div>
+          <div className="flex flex-wrap gap-2 m-2">
+            {categories.map(category => (
+              <button
+                className="bg-green-300 py-1 px-2 rounded-sm"
+                onClick={() => filterDispatch({
+                  type: "FILTER_BY_CATEGORY",
+                  payload: category
+                })}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
         {filteredProducts.length > 0 && (
           <div className="products w-full">
+
             {filteredProducts?.slice(page * 10 - 10, page * 10).map((prod) => {
               const inCart = cart.findIndex(p => p.id === prod.id) > -1;
               return (
@@ -73,6 +94,7 @@ const Home = () => {
             })}
           </div>
         )}
+        </div>
 
       </div>
         {filteredProducts.length > 0 && (
