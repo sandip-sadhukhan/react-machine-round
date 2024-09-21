@@ -8,7 +8,7 @@ const useNotification = (position="top-right") => {
   const triggerNotification = useCallback((notificationProps) => {
     clearTimeout(timer);
     setNotification(notificationProps);
-    setTimeout(() => {
+    timer = setTimeout(() => {
       setNotification(null);
     }, notificationProps.duration)
   }, []);
