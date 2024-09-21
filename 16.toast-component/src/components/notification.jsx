@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import
 {
     AiOutlineCheckCircle,
@@ -30,14 +30,37 @@ const Notification = ({
   onClose,
   animation="slide",
 }) => {
+  const notificationRef = useRef(null);
+  const ariaRole = ["error", "warning"].includes(type) ? "alert" : "status";
+  const ariaLive = ["error", "warning"].includes(type) ? "assertive": "polite";
+
+  useEffect(() => {
+    if (notificationRef.current) {
+      notificationRef.current.focus();
+    }
+  }, [])
+
   return (
-    <div className={`notification ${type} ${animations[animation]}`}>
+    <div
+      className={`notification ${type} ${animations[animation]}`}
+      role={ariaRole}
+      aria-live={ariaLive}
+      tabIndex={-1}
+      ref={notificationRef}
+    >
       {/* icon */}
       {icons[type]}
+
       {/* message */}
       {message}
+
       {/* close button */}
-      <AiOutlineClose className='closeBtn' color="white" onClick={() => onClose()} />
+      <button className='closeBtn' onClick={() => onClose()}>
+        <AiOutlineClose
+          className='closeBtn'
+          color="white"
+        />
+      </button>
     </div>
   )
 }
