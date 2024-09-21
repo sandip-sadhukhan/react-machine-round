@@ -55,3 +55,57 @@
   bottom: 20px;
   left: 20px
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s;
+}
+
+.popup {
+  animation: popup 0.5s;
+}
+
+.slideIn {
+  animation: slideIn 0.5s ease-out;
+}
+
+.notification-container {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.notification-container.bottom {
+  flex-direction: column-reverse;
+}

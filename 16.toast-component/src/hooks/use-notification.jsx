@@ -1,23 +1,38 @@
 import { useCallback, useState } from "react";
 import Notification from "../components/notification";
+import {v4 as uuidv4} from "uuid"
 
 const useNotification = (position="top-right") => {
-  const [notification, setNotification] = useState(null);
-  let timer;
+  const [notifications, setNotifications] = useState([]);
 
   const triggerNotification = useCallback((notificationProps) => {
-    clearTimeout(timer);
-    setNotification(notificationProps);
-    timer = setTimeout(() => {
-      setNotification(null);
+    const toastId = uuidv4()
+
+    setNotifications(prevNotifications => [...prevNotifications,
+      {id: toastId, ...notificationProps}]);
+
+    setTimeout(() => {
+      setNotifications(prevNotifications => prevNotifications.filter(n => n.id !== toastId));
     }, notificationProps.duration)
   }, []);
 
-  const NotificationComponent = notification ? (
-    <div className={`${position}`}>
-      <Notification {...notification} />
+  const handleNotificationClose = (index) => {
+    setNotifications(prevNotifications => {
+      const updatedNotifications = [...prevNotifications]
+      updatedNotifications.splice(index, 1);
+      return updatedNotifications;
+    })
+  }
+
+  const NotificationComponent = (
+    <div className={`notification-container ${position} ${position.split("-")[0]}`}>
+      {
+        notifications.map((notification, index) => {
+          return <Notification key={notification.id} {...notification} onClose={() => handleNotificationClose(index)} />
+        })
+      }
     </div>
-  ) : null;
+  );
 
   return {NotificationComponent, triggerNotification}
 }

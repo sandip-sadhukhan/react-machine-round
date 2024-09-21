@@ -12,7 +12,8 @@ function App() {
       onClick={() => triggerNotification({
         type: "success",
         message: "File Sent Successfully",
-        duration: 3000
+        duration: 3000,
+        animation: "fadeIn"
       })}
     >
       Trigger success
